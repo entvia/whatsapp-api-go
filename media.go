@@ -16,13 +16,13 @@ type Media struct {
 }
 
 type MediaId struct {
-	Type string `json:"type"`
+	Type string `json:"-"`
 	Id   string `json:"id"`
 	api  *API
 }
 
 type MediaLink struct {
-	Type string `json:"type"`
+	Type string `json:"-"`
 	Link string `json:"link"`
 	api  *API
 }

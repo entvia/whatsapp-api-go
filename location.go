@@ -5,6 +5,6 @@ type Location struct {
 	Latitude  string `json:"latitude"`
 	Name      string `json:"name"`
 	Address   string `json:"address"`
-	Type      string `json:"type"`
+	Type      string `json:"-"`
 	api       *API
 }
