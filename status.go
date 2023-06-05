@@ -53,7 +53,6 @@ func (obj *Status) MarkMessageAsRead(phoneId string) (*StatusResponse, error) {
 
 	res, status, err := obj.api.request(endpoint, "POST", nil, body)
 	if err != nil {
-
 		return nil, err
 	}
 

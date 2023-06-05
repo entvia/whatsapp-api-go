@@ -11,14 +11,14 @@ import (
 
 var (
 	DefaultURI     = "https://graph.facebook.com"
-	DefaultVersion = "v13.0"
+	DefaultVersion = "v17.0"
 )
 
 type API struct {
 	Token               string
 	WebHookVerification string
 	URI                 string `default:"https://graph.facebook.com"`
-	Version             string `default:"v13.0"`
+	Version             string `default:"v17.0"`
 	client              *http.Client
 }
 
