@@ -3,8 +3,6 @@ package whatsapp
 import (
 	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
 )
 
 var (
@@ -74,22 +72,21 @@ func (api *API) GetMediaData(phoneId string, mediaId string) (*MediaResponse, er
 	return &response, err
 }
 
-// DownloadMediaByURL downloads media by URL and returns a reader
-func (api *API) DownloadMediaByURL(url string) (io.ReadCloser, error) {
-	// Send HTTP request
-	resp, err := http.Get(url)
+// DownloadMediaByURL downloads media by URL
+func (api *API) DownloadMediaByURL(url string) ([]byte, error) {
+	// Call the existing request function
+	result, status, err := api.request(url, "GET", nil, nil)
 	if err != nil {
 		return nil, err
 	}
 
 	// Ensure that the HTTP request was successful
-	if resp.StatusCode != 200 {
-		resp.Body.Close()
-		return nil, fmt.Errorf("failed to download media: HTTP %s", resp.Status)
+	if status != 200 {
+		return nil, fmt.Errorf("failed to download media: HTTP %d", status)
 	}
 
-	// Return the response body
-	return resp.Body, nil
+	// Return the downloaded media
+	return result, nil
 }
 
 // DeleteMediaByID deletes media by its ID.
