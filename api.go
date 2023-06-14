@@ -65,7 +65,9 @@ func (api *API) request(endpoint string, method string, params map[string]interf
 		return
 	}
 
-	req.Header.Add("Content-Type", "application/json")
+	if body != nil {
+		req.Header.Add("Content-Type", "application/json")
+	}
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", api.Token))
 
 	resp, err := api.client.Do(req)

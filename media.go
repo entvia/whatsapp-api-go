@@ -82,7 +82,7 @@ func (api *API) DownloadMediaByURL(url string) ([]byte, error) {
 
 	// Ensure that the HTTP request was successful
 	if status != 200 {
-		return nil, fmt.Errorf("failed to download media: HTTP %d", status)
+		return nil, fmt.Errorf("failed to download media: HTTP %d, err: %v", status, err)
 	}
 
 	// Return the downloaded media
