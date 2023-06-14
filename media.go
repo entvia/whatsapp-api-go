@@ -114,6 +114,6 @@ type MediaResponse struct {
 	Url              string `json:"url"`
 	MimeType         string `json:"mime_type"`
 	Sha256           string `json:"sha256"`
-	FileSize         string `json:"file_size"`
+	FileSize         int32  `json:"file_size"`
 	Id               string `json:"id"`
 }
