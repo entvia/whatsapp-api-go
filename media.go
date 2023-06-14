@@ -72,6 +72,43 @@ func (api *API) GetMediaData(phoneId string, mediaId string) (*MediaResponse, er
 	return &response, err
 }
 
+// DownloadMediaByURL downloads media by URL
+func (api *API) DownloadMediaByURL(url string) ([]byte, error) {
+	// Call the existing request function
+	result, status, err := api.request(url, "GET", nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// Ensure that the HTTP request was successful
+	if status != 200 {
+		return nil, fmt.Errorf("failed to download media: HTTP %d", status)
+	}
+
+	// Return the downloaded media
+	return result, nil
+}
+
+// DeleteMediaByID deletes media by its ID.
+func (api *API) DeleteMediaByID(mediaID string) (bool, error) {
+	// Prepare the endpoint with the media ID.
+	endpoint := fmt.Sprintf("/%s", mediaID)
+
+	// Call the existing request function.
+	_, status, err := api.request(endpoint, "DELETE", nil, nil)
+	if err != nil {
+		return false, err
+	}
+
+	// Ensure that the HTTP request was successful.
+	if status != 200 {
+		return false, fmt.Errorf("failed to delete media: HTTP %d", status)
+	}
+
+	// If the request was successful, return true.
+	return true, nil
+}
+
 type MediaResponse struct {
 	MessagingProduct string `json:"messaging_product"`
 	Url              string `json:"url"`
