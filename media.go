@@ -49,7 +49,8 @@ func (m *MediaId) ToMedia() *Media {
 
 func (api *API) GetMediaData(phoneId string, mediaId string) (*MediaResponse, error) {
 
-	endpoint := fmt.Sprintf("/%s/media/%s", phoneId, mediaId)
+	// endpoint := fmt.Sprintf("/%s/media/%s", phoneId, mediaId)
+	endpoint := fmt.Sprintf("/%s", mediaId)
 
 	params := map[string]interface{}{}
 	params["access_token"] = api.Token
