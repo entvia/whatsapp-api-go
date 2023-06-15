@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -65,9 +66,7 @@ func (api *API) request(endpoint string, method string, params map[string]interf
 		return
 	}
 
-	if body != nil {
-		req.Header.Add("Content-Type", "application/json")
-	}
+	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", api.Token))
 
 	resp, err := api.client.Do(req)
@@ -83,4 +82,26 @@ func (api *API) request(endpoint string, method string, params map[string]interf
 	}
 	status = resp.StatusCode
 	return
+}
+
+// downloadRequest is a helper function to download a media file or a document
+// it takes url of the file and uses token to authenticate the request
+func (api *API) downloadRequest(url string) (io.ReadCloser, int, error) {
+	if api.client == nil {
+		api.client = &http.Client{}
+	}
+
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", api.Token))
+
+	resp, err := api.client.Do(req)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	return resp.Body, resp.StatusCode, nil
 }
