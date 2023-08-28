@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -76,7 +75,7 @@ func (api *API) request(endpoint string, method string, params map[string]interf
 	if err != nil {
 		return
 	}
-	result, err = ioutil.ReadAll(resp.Body)
+	result, err = io.ReadAll(resp.Body)
 	if err != nil {
 		return
 	}
