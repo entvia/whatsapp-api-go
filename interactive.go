@@ -15,11 +15,6 @@ type Interactive struct {
 }
 
 type InteractiveBtnReq struct {
-	// Header is optional
-	Header struct {
-		Type string `json:"type"`
-		Text string `json:"text"`
-	}
 	Body struct {
 		Text string `json:"text"`
 	} `json:"body"`
